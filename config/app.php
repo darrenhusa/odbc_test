@@ -165,6 +165,7 @@ return [
         /*
          * Package Service Providers...
          */
+         Abram\Odbc\ODBCServiceProvider::class,
 
         /*
          * Application Service Providers...

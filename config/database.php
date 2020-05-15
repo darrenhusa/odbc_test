@@ -91,6 +91,16 @@ return [
             'prefix_indexes' => true,
         ],
 
+        'odbc-empower' => [
+          'driver' => 'odbc',
+          'dsn' => 'EMPOWER',
+          'database' => env('DB_DATABASE', '')
+          // 'database' => 'DatabaseName',
+          // 'host' => '127.0.0.1',
+          // 'username' => 'username',
+          // 'password' => 'password'
+        ],
+
     ],
 
     /*
