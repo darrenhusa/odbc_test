@@ -46,16 +46,22 @@ class TradFulltimeEnrolledWithAthleticStatus
         // build IsSrAthlete field from ACTI_ID
         // If ACTI_ID is not null then TRUE ELSE FALSE
         $new = $query->map(function($item) {
-          if ($item['ACTI_ID'])
-          {
-            $item['IsSrAthlete'] = 1;
-          }
-          else
-          {
-            $item['IsSrAthlete'] = 0;
-          }
+          ($item['ACTI_ID']) ? ($item['IsSrAthlete'] = 1) : ($item['IsSrAthlete'] = 0);
           return $item;
         });
+
+        //long form
+        // $new = $query->map(function($item) {
+        //   if ($item['ACTI_ID'])
+        //   {
+        //     $item['IsSrAthlete'] = 1;
+        //   }
+        //   else
+        //   {
+        //     $item['IsSrAthlete'] = 0;
+        //   }
+        //   return $item;
+        // });
 
         // build EntryTypeALt field from ETYP_ID
         // AH, HS = first-time
