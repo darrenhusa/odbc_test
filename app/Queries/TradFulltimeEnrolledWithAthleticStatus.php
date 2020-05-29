@@ -46,6 +46,8 @@ class TradFulltimeEnrolledWithAthleticStatus
         ->orderBy($name . '.LAST_NAME', 'asc')
         ->orderBy($name . '.FIRST_NAME', 'asc');
 
+      $results1 = $query1->get();
+
       // dd($fields);
       // $query1 = DB::table("$sr_term")
       //    ->where("$sr_term.TERM_ID", $term)
@@ -62,7 +64,7 @@ class TradFulltimeEnrolledWithAthleticStatus
       // ->orderBy("{$name}.FIRST_NAME", 'asc');
 
       // dd($query1->toSql());
-      dd($query1->get());
+      // dd($query1->get());
 
 
       // raw sql from Access query builder
@@ -103,7 +105,8 @@ class TradFulltimeEnrolledWithAthleticStatus
 
       // dd($test);
 
-      $query = DB::table($sr_term)
+      // to create NumSrSports field
+      $query2 = DB::table($sr_term)
       	 ->where($sr_term.'.TERM_ID', $term)
          ->whereIn($sr_term.'.STUD_STATUS', ['A', 'W'])
          ->where($sr_term.'.PRGM_ID1', 'like', 'TR%')
@@ -117,16 +120,21 @@ class TradFulltimeEnrolledWithAthleticStatus
         		$join->on($sr_term.'.NAME_ID', '=', $sr_athlete.'.NAME_ID');
               $join->on($sr_term.'.TERM_ID', '=', $sr_athlete.'.TERM_ID');
       })
-      // ->select($fields)
-      ->selectRaw($fields_short)
-      // ->selectRaw('count('. $sr_athlete.'.ACTI_ID) as num_sr_sports')
-      ->groupBy("{$name}.DFLT_ID");
-      // ->orderBy("{$name}.LAST_NAME", 'asc')
-      // ->orderBy("{$name}.FIRST_NAME", 'asc');
+      ->select($name. '.DFLT_ID')
+      ->selectRaw('count('. $sr_athlete.'.ACTI_ID) as num_sr_sports')
+      ->groupBy($name . '.DFLT_ID');
 
-      // dd($sql = $query->toSql());
-      // dd($query);
-      dd($query->get());
+      // dd($query2->toSql());
+      $results2 = $query2->get();
+      // dd($query2->get());
+
+      // dd($results1->toArray(), $results2->toArray());
+
+      //TODO - Need to merge the two collections!!!!?????
+      $merged = array_merge($results1->toArray(), $results2->toArray());
+      // $merged = $results1->merge($results2);
+
+      dd($merged);
 
         // build IsSrAthlete field from ACTI_ID
         // If ACTI_ID is not null then TRUE ELSE FALSE
