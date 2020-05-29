@@ -95,6 +95,7 @@ return [
           'driver' => 'odbc',
           'dsn' => 'EMPOWER',
           'database' => env('DB_DATABASE', '')
+          // 'strict' => false,
           // 'database' => 'DatabaseName',
           // 'host' => '127.0.0.1',
           // 'username' => 'username',
