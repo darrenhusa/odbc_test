@@ -65,6 +65,44 @@ class TradFulltimeEnrolledWithAthleticStatus
       dd($query1->get());
 
 
+      // raw sql from Access query builder
+      // $sql = <<<EOT
+      // SELECT CCSJ_PROD.CCSJ_CO_V_NAME.DFLT_ID,
+      // CCSJ_PROD.CCSJ_CO_V_NAME.LAST_NAME,
+      // CCSJ_PROD.CCSJ_CO_V_NAME.FIRST_NAME,
+      // CCSJ_PROD.SR_STUDENT_TERM.ETYP_ID,
+      // Count(CCSJ_PROD.SR_STUD_TERM_ACT.ACTI_ID) AS NumSrSports
+      // FROM ((CCSJ_PROD.CCSJ_CO_V_NAME INNER JOIN
+      // CCSJ_PROD.SR_STUDENT_TERM ON
+      // CCSJ_PROD.CCSJ_CO_V_NAME.NAME_ID =
+      // CCSJ_PROD.SR_STUDENT_TERM.NAME_ID) INNER JOIN
+      // CCSJ_PROD.SR_ST_TERM_CRED ON
+      // (CCSJ_PROD.SR_STUDENT_TERM.TERM_ID =
+      // CCSJ_PROD.SR_ST_TERM_CRED.TERM_ID) AND
+      // (CCSJ_PROD.SR_STUDENT_TERM.NAME_ID =
+      // CCSJ_PROD.SR_ST_TERM_CRED.NAME_ID)) LEFT JOIN
+      // CCSJ_PROD.SR_STUD_TERM_ACT ON
+      // (CCSJ_PROD.SR_STUDENT_TERM.TERM_ID =
+      // CCSJ_PROD.SR_STUD_TERM_ACT.TERM_ID) AND
+      // (CCSJ_PROD.SR_STUDENT_TERM.NAME_ID =
+      // CCSJ_PROD.SR_STUD_TERM_ACT.NAME_ID)
+      // WHERE (((CCSJ_PROD.SR_STUDENT_TERM.TERM_ID)='20191') AND
+      // ((CCSJ_PROD.SR_STUDENT_TERM.STUD_STATUS)='A' Or
+      // (CCSJ_PROD.SR_STUDENT_TERM.STUD_STATUS)='W') AND
+      // ((CCSJ_PROD.SR_STUDENT_TERM.PRGM_ID1) Like 'TR*') AND
+      // ((CCSJ_PROD.SR_ST_TERM_CRED.TU_CREDIT_ENRL)>=12))
+      // GROUP BY CCSJ_PROD.CCSJ_CO_V_NAME.DFLT_ID,
+      // CCSJ_PROD.CCSJ_CO_V_NAME.LAST_NAME,
+      // CCSJ_PROD.CCSJ_CO_V_NAME.FIRST_NAME,
+      // CCSJ_PROD.SR_STUDENT_TERM.ETYP_ID
+      // ORDER BY CCSJ_PROD.CCSJ_CO_V_NAME.LAST_NAME,
+      // CCSJ_PROD.CCSJ_CO_V_NAME.FIRST_NAME
+      // EOT;
+
+      // $test = DB::select(DB::raw($sql));
+
+      // dd($test);
+
       $query = DB::table($sr_term)
       	 ->where($sr_term.'.TERM_ID', $term)
          ->whereIn($sr_term.'.STUD_STATUS', ['A', 'W'])
