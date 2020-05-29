@@ -16,3 +16,5 @@ Route::get('/', function () {
 });
 
 Route::get('/ds1', 'TradReportController@index');
+
+Route::get('/trad_ft', 'TradReportController@get_trad_ft');

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 use App\Queries\TradAorWEnrolled;
+use App\Queries\TradFulltimeEnrolledWithAthleticStatus;
 
 class TradReportController extends Controller
 {
@@ -62,5 +63,37 @@ class TradReportController extends Controller
       // ->where('PRGM_ID1', 'like', 'TR%')
       // ->select($right.'.ETYP_ID', $left.'.TU_CREDIT_ENRL')
       //   ->get();
+    }
+
+
+    public function get_trad_ft()
+    {
+
+        $results = TradFulltimeEnrolledWithAthleticStatus::get('20191');
+        dd($results);
+        // tinker($results);
+
+        $all_count = $results->count();
+
+        // filter for full-time
+        $fulltime_count = $results
+            ->filter(function ($item) {
+                return $item['TU_CREDIT_ENRL'] >= 12;
+              })
+            ->count();
+
+        $parttime_count = $results
+            ->filter(function ($item) {
+                return $item['TU_CREDIT_ENRL'] < 12;
+              })
+            ->count();
+
+        $all_by_entry_type = $results
+            ->groupBy('ETYP_ID');
+
+
+          dd($all_by_entry_type);
+          // dd($all_count, $fulltime_count, $parttime_count);
+
     }
 }
